@@ -1,4 +1,16 @@
+function shim(file, exp) {
+  return {
+    path: './bower_components/' + file,
+    exports: exp
+  };
+}
+
 exports.config = {
+  browserify: {
+    shim: {
+      angular: shim('angular/angular.js', 'angular')
+    }
+  },
   server: {
     port: 8080
   },

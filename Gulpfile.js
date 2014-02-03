@@ -3,6 +3,7 @@ var coffeeify  = require('coffeeify');
 var browserify = require('gulp-browserify');
 var minhtml    = require('gulp-minify-html');
 var rename     = require("gulp-rename");
+var bower      = require("bower");
 
 var http       = require('http');
 var ecstatic   = require('ecstatic');
@@ -14,6 +15,7 @@ gulp.task('coffee', function() {
     .pipe(browserify({
       transform:  ['coffeeify'],
       extensions: ['.coffee'],
+      shim: config.browserify.shim
     }))
     .pipe(rename(function (dir, base, ext){
       return base + '.js';

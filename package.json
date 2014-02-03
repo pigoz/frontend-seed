@@ -15,6 +15,7 @@
     "coffeeify": "~0.6.0",
     "gulp-minify-html": "~0.1.0",
     "gulp-rename": "~0.2.2",
-    "ecstatic": "~0.4.13"
+    "ecstatic": "~0.4.13",
+    "bower": "~1.2.8"
   }
 }
