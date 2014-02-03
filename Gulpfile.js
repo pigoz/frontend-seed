@@ -7,23 +7,7 @@ var rename     = require("gulp-rename");
 var http       = require('http');
 var ecstatic   = require('ecstatic');
 
-var config = {
-  server: {
-    port: 8080
-  },
-  src: {
-    coffee: ['./src/js/app.coffee'],
-    html:   ['./src/html/*.html']
-  },
-  dest: {
-    coffee: './build/js',
-    html:   './build'
-  },
-  watch: {
-    coffee: './src/js/**/*.coffee',
-    html:   './src/html/**/*.html'
-  }
-};
+var config     = require('./config.js').config;
 
 gulp.task('coffee', function() {
   gulp.src(config.src.coffee, { read: false })
