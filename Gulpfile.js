@@ -34,7 +34,7 @@ gulp.task('watch', function() {
 
 gulp.task('server', function() {
   http.createServer(
-    ecstatic({ root: './build' })
+    ecstatic({ root: config.dest.root })
   ).listen(config.server.port);
 
   console.log('ecstatic listening on :' + config.server.port);

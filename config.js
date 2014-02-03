@@ -7,6 +7,7 @@ exports.config = {
     html:   ['./src/html/*.html']
   },
   dest: {
+    root:   './build',
     coffee: './build/js',
     html:   './build'
   },
