@@ -1,0 +1,20 @@
+{
+  "name": "frontend-seed",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "GPLv2+",
+  "devDependencies": {
+    "gulp": "~3.5.1",
+    "gulp-browserify": "~0.4.2",
+    "gulp-coffee": "~1.4.1",
+    "coffeeify": "~0.6.0",
+    "gulp-minify-html": "~0.1.0",
+    "gulp-rename": "~0.2.2",
+    "ecstatic": "~0.4.13"
+  }
+}
