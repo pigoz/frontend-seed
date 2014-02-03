@@ -9,6 +9,7 @@
   "author": "",
   "license": "GPLv2+",
   "devDependencies": {
+    "coffee-script": "~1.6.3",
     "gulp": "~3.5.1",
     "gulp-browserify": "~0.4.2",
     "gulp-coffee": "~1.4.1",

@@ -1,30 +1,20 @@
-function shim(file, exp) {
-  return {
-    path: './bower_components/' + file,
-    exports: exp
-  };
-}
+shim = (file, exp) ->
+  path: './bower_components/' + file
+  exports: exp
 
-exports.config = {
-  browserify: {
-    shim: {
+exports = module.exports =
+  browserify:
+    shim:
       angular: shim('angular/angular.js', 'angular')
-    }
-  },
-  server: {
+  server:
     port: 8080
-  },
-  src: {
+  src:
     coffee: ['./src/js/app.coffee'],
     html:   ['./src/html/*.html']
-  },
-  dest: {
+  dest:
     root:   './build',
     coffee: './build/js',
     html:   './build'
-  },
-  watch: {
+  watch:
     coffee: './src/js/**/*.coffee',
     html:   './src/html/**/*.html'
-  }
-};
