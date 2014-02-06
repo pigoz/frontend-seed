@@ -13,7 +13,7 @@ config     = require './config.coffee'
 
 gulp.task 'sass', ->
   gulp.src(config.src.sass)
-    .pipe(sass(bundleExec: true))
+    .pipe(sass(sourcemap: true, bundleExec: true))
     .pipe(gulp.dest(config.dest.sass))
 
 gulp.task 'coffee', ->
