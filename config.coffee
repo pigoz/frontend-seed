@@ -1,11 +1,4 @@
-shim = (file, exp) ->
-  path: './bower_components/' + file
-  exports: exp
-
 exports = module.exports =
-  browserify:
-    shim:
-      angular: shim('angular/angular.js', 'angular')
   server:
     port: 8080
   src:

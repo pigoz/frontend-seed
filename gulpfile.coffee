@@ -4,23 +4,27 @@ browserify = require 'gulp-browserify'
 minhtml    = require 'gulp-minify-html'
 rename     = require 'gulp-rename'
 sass       = require 'gulp-ruby-sass'
-bower      = require 'bower'
 
 http       = require 'http'
 ecstatic   = require 'ecstatic'
 
 config     = require './config.coffee'
+paths      = require './bower-paths.coffee'
 
-gulp.task 'sass', ->
-  gulp.src(config.src.sass)
+gulp.task 'bower', ->
+  paths.load()
+
+gulp.task 'sass', ['bower'], ->
+  gulp
+    .src(config.src.sass)
     .pipe(sass(sourcemap: true, bundleExec: true))
     .pipe(gulp.dest(config.dest.sass))
 
-gulp.task 'coffee', ->
+gulp.task 'coffee', ['bower'], ->
   browserifyConfig =
     transform:  ['coffeeify'],
     extensions: ['.coffee'],
-    shim: config.browserify.shim
+    shim:       paths.browserify.shim
 
   gulp
     .src(config.src.coffee, read: false)

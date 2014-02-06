@@ -18,6 +18,7 @@
     "gulp-rename": "~0.2.2",
     "ecstatic": "~0.4.13",
     "bower": "~1.2.8",
-    "gulp-ruby-sass": "~0.3.0"
+    "gulp-ruby-sass": "~0.3.0",
+    "q": "~1.0.0"
   }
 }
