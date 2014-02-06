@@ -3,12 +3,18 @@ coffeeify  = require 'coffeeify'
 browserify = require 'gulp-browserify'
 minhtml    = require 'gulp-minify-html'
 rename     = require 'gulp-rename'
+sass       = require 'gulp-ruby-sass'
 bower      = require 'bower'
 
 http       = require 'http'
 ecstatic   = require 'ecstatic'
 
 config     = require './config.coffee'
+
+gulp.task 'sass', ->
+  gulp.src(config.src.sass)
+    .pipe(sass(bundleExec: true))
+    .pipe(gulp.dest(config.dest.sass))
 
 gulp.task 'coffee', ->
   browserifyConfig =
@@ -30,6 +36,7 @@ gulp.task 'html', ->
     .pipe(gulp.dest(config.dest.html))
 
 gulp.task 'watch', ->
+  gulp.watch config.watch.sass,   ['sass']
   gulp.watch config.watch.coffee, ['coffee']
   gulp.watch config.watch.html,   ['html']
 
@@ -40,5 +47,5 @@ gulp.task 'server', ->
 
   console.log "ecstatic listening on : #{config.server.port}"
 
-gulp.task 'build',   ['coffee', 'html']
+gulp.task 'build',   ['sass', 'coffee', 'html']
 gulp.task 'default', ['build', 'watch', 'server']
