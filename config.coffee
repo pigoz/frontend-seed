@@ -1,6 +1,6 @@
 exports = module.exports =
   server:
-    port: 8080
+    port: 1337
   src:
     coffee: ['./src/js/app.coffee']
     html:   ['./src/html/*.html']
