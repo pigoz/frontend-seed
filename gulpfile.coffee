@@ -5,11 +5,18 @@ minhtml    = require 'gulp-minify-html'
 rename     = require 'gulp-rename'
 sass       = require 'gulp-ruby-sass'
 
+gulpif     = require 'gulp-if'
+uglify     = require 'gulp-uglify'
+mincss     = require 'gulp-minify-css'
+
 http       = require 'http'
 ecstatic   = require 'ecstatic'
 
 config     = require './config.coffee'
 paths      = require './bower-paths.coffee'
+
+isProd = ->
+  process.env.BUILD_ENV == "production"
 
 gulp.task 'bower', ->
   paths.load()
@@ -18,6 +25,7 @@ gulp.task 'sass', ['bower'], ->
   gulp
     .src(config.src.sass)
     .pipe(sass(sourcemap: true, bundleExec: true))
+    .pipe(gulpif(isProd(), mincss()))
     .pipe(gulp.dest(config.dest.sass))
 
 gulp.task 'coffee', ['bower'], ->
@@ -31,12 +39,14 @@ gulp.task 'coffee', ['bower'], ->
     .pipe(browserify(browserifyConfig))
     .pipe(rename((dir, base, ext) ->
       base + '.js'
-    )).pipe(gulp.dest(config.dest.coffee))
+    ))
+    .pipe(gulpif(isProd(), uglify()))
+    .pipe(gulp.dest(config.dest.coffee))
 
 gulp.task 'html', ->
   gulp
     .src(config.src.html)
-    .pipe(minhtml())
+    .pipe(gulpif(isProd(), minhtml()))
     .pipe(gulp.dest(config.dest.html))
 
 gulp.task 'watch', ->
