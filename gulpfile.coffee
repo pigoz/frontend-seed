@@ -24,7 +24,7 @@ gulp.task 'bower', ->
 gulp.task 'sass', ['bower'], ->
   gulp
     .src(config.src.sass)
-    .pipe(sass(sourcemap: true, bundleExec: true))
+    .pipe(sass(sourcemap: true, bundleExec: true, loadPath: paths.sass.paths))
     .pipe(gulpif(isProd(), mincss()))
     .pipe(gulp.dest(config.dest.sass))
 
