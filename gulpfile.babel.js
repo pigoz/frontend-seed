@@ -9,7 +9,7 @@ const src = {
 };
 
 const dst = {
-  root: './dist'
+  root: './build'
 };
 
 const config = { src, dst };
@@ -17,6 +17,12 @@ const config = { src, dst };
 gulp.task('html', () => {
   return gulp.src(config.src.html)
     .pipe(minhtml())
+    .pipe(gulp.dest(config.dst.root))
+    .pipe(connect.reload());
+});
+
+gulp.task('js', () => {
+  return gulp.src(config.src.js)
     .pipe(gulp.dest(config.dst.root))
     .pipe(connect.reload());
 });
@@ -30,6 +36,8 @@ gulp.task('connect', () => {
 
 gulp.task('watch', function(){
   gulp.watch([config.src.html], ['html']);
+  gulp.watch([config.src.js],   ['js']);
 });
 
-gulp.task('default', ['connect','watch']);
+gulp.task('start', ['html', 'js']);
+gulp.task('default', ['start', 'connect','watch']);

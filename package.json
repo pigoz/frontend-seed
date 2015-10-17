@@ -17,5 +17,19 @@
     "gulp-jspm": "^0.4.1",
     "gulp-minify-html": "^1.0.4",
     "jspm": "^0.16.12"
+  },
+  "jspm": {
+    "directories": {
+      "baseURL": "build"
+    },
+    "dependencies": {
+      "react": "npm:react@^0.14.0",
+      "react-dom": "npm:react-dom@^0.14.0"
+    },
+    "devDependencies": {
+      "babel": "npm:babel-core@^5.8.24",
+      "babel-runtime": "npm:babel-runtime@^5.8.24",
+      "core-js": "npm:core-js@^1.1.4"
+    }
   }
 }
