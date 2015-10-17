@@ -35,10 +35,14 @@ gulp.task('css', () => {
     errLogToConsole: true,
     outputStyle: 'expanded'
   };
+  const autoprefixerOpts = {
+    browsers: ['last 2 version'],
+    cascade: false
+  };
   return gulp.src(config.src.css)
     .pipe(sourcemaps.init())
     .pipe(sass(sassOpts).on('error', sass.logError))
-    .pipe(autoprefixer())
+    .pipe(autoprefixer(autoprefixerOpts))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest(config.dst.root))
     .pipe(connect.reload());
