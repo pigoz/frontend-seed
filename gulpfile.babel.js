@@ -19,6 +19,12 @@ gulp.task('html', () => {
   return stream.pipe(connect.reload());
 });
 
+gulp.task('jspm-config', () => {
+  return gulp.src(config.src.jspm)
+    .pipe(gulp.dest(config.dst()))
+    .pipe(connect.reload());
+});
+
 gulp.task('js', () => {
   return gulp.src(config.src.js)
     .pipe(gulp.dest(config.dst()))
@@ -55,15 +61,17 @@ gulp.task('connect', () => {
 });
 
 gulp.task('watch', function(){
+  gulp.watch([config.src.jspm], ['jspm-config']);
   gulp.watch([config.src.js],   ['js']);
   gulp.watch([config.src.css],  ['css']);
   gulp.watch([config.src.html], ['html']);
 });
 
-gulp.task('start', ['js', 'css', 'html']);
+gulp.task('start', ['jspm-config', 'js', 'css', 'html']);
+gulp.task('prod',  ['jspm-bundle', 'css', 'html']);
 
 if (config.production) {
-  gulp.task('default', ['start']);
+  gulp.task('default', ['prod']);
 } else {
   gulp.task('default', ['start', 'connect','watch']);
 }
