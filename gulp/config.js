@@ -9,10 +9,11 @@ function dst(file) {
 };
 
 const paths = {
-  html: './src/**/*.html',
-  css:  './src/**/*.scss',
-  js:   './src/**/*.js',
-  jspm: './jspm/**/.js',
+  icons: './src/**/*.svg',
+  html:  './src/**/*.html',
+  css:   './src/**/*.scss',
+  js:    './src/**/*.js',
+  jspm:  './jspm/**/.js',
   jspm_ln: ['./jspm/config.js', './jspm/jspm_packages'],
   jspm_ln_dst: [dst('jspm/config.js'), dst('jspm/jspm_packages')],
 };

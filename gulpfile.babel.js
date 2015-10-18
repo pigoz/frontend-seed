@@ -30,6 +30,7 @@ requireDir('./gulp/tasks', { recurse: false });
 gulp.task('build', () => {
   runSequence(
     'clean',
+    'icons',
     ['jspm-ln', 'jspm', 'js', 'css'],
     'html'
   );
@@ -38,6 +39,7 @@ gulp.task('build', () => {
 gulp.task('bundle', () => {
   runSequence(
     'clean',
+    'icons',
     ['js-bundle', 'css'],
     'html'
   );
