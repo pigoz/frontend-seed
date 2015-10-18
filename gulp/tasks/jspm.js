@@ -1,4 +1,5 @@
 import gulp from 'gulp';
+import shell from 'gulp-shell';
 import connect from 'gulp-connect';
 import symlink from 'gulp-symlink';
 import config from '../config';
@@ -18,3 +19,7 @@ gulp.task('jspm-ln', () => {
   return gulp.src(config.paths.jspm_ln, {read: false})
     .pipe(symlink(config.paths.jspm_ln_dst, {force: true}));
 });
+
+gulp.task('jspm-bundle', shell.task([
+  'jspm bundle-sfx --minify src/js/app.js dist/js/app.js'
+]));

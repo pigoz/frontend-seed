@@ -31,7 +31,7 @@ gulp.task('build', ['clean'], () => {
 });
 
 gulp.task('bundle', ['clean'], () => {
-  gulp.start(['jspm-bundle', 'css', 'html']);
+  gulp.start('js', ['jspm-bundle', 'css'], 'html');
 });
 
 if (config.production) {
