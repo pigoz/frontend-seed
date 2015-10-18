@@ -18,4 +18,3 @@ gulp.task('jspm-ln', () => {
   return gulp.src(config.paths.jspm_ln, {read: false})
     .pipe(symlink(config.paths.jspm_ln_dst, {force: true}));
 });
-

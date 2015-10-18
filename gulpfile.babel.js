@@ -9,24 +9,24 @@ gulp.task('clean', () => {
     .pipe(clean({force: true}));
 });
 
-gulp.task('connect', () => {
+gulp.task('server', () => {
   connect.server({
     root: config.dst(),
     livereload: true
   });
 });
 
-gulp.task('watch', function(){
+gulp.task('watch', () => {
   gulp.watch([config.paths.js],   ['js']);
   gulp.watch([config.paths.css],  ['css']);
   gulp.watch([config.paths.html], ['html']);
 });
 
-// Require all tasks in the 'gulp' folder.
+// require all tasks in the 'gulp' folder
 requireDir('./gulp/tasks', { recurse: false });
 
 // use gulp.start to make sure clean runs before everything, YUCK!
-gulp.task('start', ['clean'], () => {
+gulp.task('build', ['clean'], () => {
   gulp.start(['jspm-ln', 'jspm', 'js', 'css', 'html']);
 });
 
@@ -37,5 +37,5 @@ gulp.task('bundle', ['clean'], () => {
 if (config.production) {
   gulp.task('default', ['bundle']);
 } else {
-  gulp.task('default', ['start', 'connect', 'watch']);
+  gulp.task('default', ['build', 'server', 'watch']);
 }
