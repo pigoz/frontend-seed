@@ -2,6 +2,7 @@ import gulp from 'gulp';
 import connect from 'gulp-connect';
 import clean from 'gulp-clean';
 import requireDir from 'require-dir';
+import runSequence from 'run-sequence'; // remove with gulp4
 import config from './gulp/config';
 
 gulp.task('clean', () => {
@@ -26,12 +27,20 @@ gulp.task('watch', () => {
 requireDir('./gulp/tasks', { recurse: false });
 
 // use gulp.start to make sure clean runs before everything, YUCK!
-gulp.task('build', ['clean'], () => {
-  gulp.start(['jspm-ln', 'jspm', 'js', 'css', 'html']);
+gulp.task('build', () => {
+  runSequence(
+    'clean',
+    ['jspm-ln', 'jspm', 'js', 'css'],
+    'html'
+  );
 });
 
-gulp.task('bundle', ['clean'], () => {
-  gulp.start('js', ['jspm-bundle', 'css'], 'html');
+gulp.task('bundle', () => {
+  runSequence(
+    'clean',
+    ['js-bundle', 'css'],
+    'html'
+  );
 });
 
 if (config.production) {

@@ -2,6 +2,7 @@ import gulp from 'gulp';
 import shell from 'gulp-shell';
 import connect from 'gulp-connect';
 import symlink from 'gulp-symlink';
+import manifest from '../manifest';
 import config from '../config';
 
 gulp.task('js', () => {
@@ -20,6 +21,13 @@ gulp.task('jspm-ln', () => {
     .pipe(symlink(config.paths.jspm_ln_dst, {force: true}));
 });
 
-gulp.task('jspm-bundle', shell.task([
-  'jspm bundle-sfx --minify src/js/app.js dist/js/app.js'
-]));
+gulp.task('jspm-bundle', shell.task(
+  `jspm bundle-sfx --minify src/js/app.js ${config.dst('js/app.js')}`
+));
+
+gulp.task('js-bundle', ['jspm-bundle'], () => {
+  let base = process.cwd() + '/dist';
+  let stream = gulp.src(config.dst('js/app.js'), { base });
+  stream = manifest.write(stream);
+  return stream.pipe(connect.reload());
+});
