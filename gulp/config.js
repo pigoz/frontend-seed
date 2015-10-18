@@ -1,13 +1,6 @@
 import path from 'path';
 import util from 'gulp-util';
 
-const src = {
-  html: './src/**/*.html',
-  css:  './src/**/*.scss',
-  js:   './src/**/*.js',
-  jspm: './jspm/config.js'
-};
-
 function dst(file) {
   let base = './dist';
   if (file)
@@ -15,4 +8,13 @@ function dst(file) {
   return base;
 };
 
-export default { src, dst, production: !!util.env.production };
+const paths = {
+  html: './src/**/*.html',
+  css:  './src/**/*.scss',
+  js:   './src/**/*.js',
+  jspm: './jspm/**/.js',
+  jspm_ln: ['./jspm/config.js', './jspm/jspm_packages'],
+  jspm_ln_dst: [dst('jspm/config.js'), dst('jspm/jspm_packages')],
+};
+
+export default { paths, dst, production: !!util.env.production };
