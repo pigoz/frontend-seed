@@ -26,7 +26,6 @@ gulp.task('watch', () => {
 // require all tasks in the 'gulp' folder
 requireDir('./gulp/tasks', { recurse: false });
 
-// use gulp.start to make sure clean runs before everything, YUCK!
 gulp.task('build', () => {
   runSequence(
     'clean',
