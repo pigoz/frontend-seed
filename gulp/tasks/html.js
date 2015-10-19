@@ -7,13 +7,10 @@ import config from '../config';
 import helpers from '../html-helpers';
 
 gulp.task('html', () => {
-  let stream = gulp.src(config.paths.html)
+  return gulp.src(config.paths.html)
     .pipe(minhtml())
     .pipe(handlebars({helpers}))
-    .pipe(gulp.dest(config.dst()));
-
-  if (config.production)
-    stream = manifest.replace(stream);
-
-  return stream.pipe(connect.reload());
+    .pipe(gulp.dest(config.dst()))
+    .pipe(manifest.replace())
+    .pipe(connect.reload());
 });

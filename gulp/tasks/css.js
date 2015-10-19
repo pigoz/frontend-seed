@@ -15,16 +15,13 @@ gulp.task('css', () => {
     browsers: ['last 2 version'],
     cascade: false
   };
-  let stream = gulp.src(config.paths.css)
+  return gulp.src(config.paths.css)
     .pipe(sourcemaps.init())
     .pipe(sass(sassOpts).on('error', sass.logError))
     .pipe(autoprefixer(autoprefixerOpts))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest(config.dst()));
-
-  if (config.production)
-    stream = manifest.write(stream);
-
-  return stream.pipe(connect.reload());
+    .pipe(gulp.dest(config.dst()))
+    .pipe(manifest.write())
+    .pipe(connect.reload());
 });
 

@@ -27,7 +27,7 @@ gulp.task('jspm-bundle', shell.task(
 
 gulp.task('js-bundle', ['jspm-bundle'], () => {
   let base = process.cwd() + '/dist';
-  let stream = gulp.src(config.dst('js/app.js'), { base });
-  stream = manifest.write(stream);
-  return stream.pipe(connect.reload());
+  return gulp.src(config.dst('js/app.js'), { base })
+    .pipe(manifest.write())
+    .pipe(connect.reload());
 });

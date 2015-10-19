@@ -27,9 +27,9 @@ gulp.task('gen-icons', () => {
 if (config.production) {
   gulp.task('icons', ['gen-icons'], () => {
     let base = process.cwd() + '/dist';
-    let stream = gulp.src(config.dst('css/icon.css'), { base });
-    stream = manifest.write(stream);
-    return stream.pipe(connect.reload());
+    return gulp.src(config.dst('css/icon.css'), { base })
+      .pipe(manifest.write())
+      .pipe(connect.reload());
   });
 } else {
   gulp.task('icons', ['gen-icons']);
