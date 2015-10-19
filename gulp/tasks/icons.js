@@ -44,5 +44,5 @@ if (config.production) {
     runSequence('gen-icons', 'gen-fonts-rev', 'gen-icons-css-rev');
   });
 } else {
-  gulp.task('icons', 'gen-icons');
+  gulp.task('icons', ['gen-icons']);
 }
