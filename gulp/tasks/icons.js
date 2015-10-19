@@ -2,8 +2,11 @@ import gulp from 'gulp';
 import connect from 'gulp-connect';
 import iconfont from 'gulp-iconfont';
 import consolidate from 'gulp-consolidate';
+import runSequence from 'run-sequence'; // remove with gulp4
 import config from '../config';
 import manifest from '../manifest';
+
+const base = process.cwd() + '/dist';
 
 gulp.task('gen-icons', () => {
   let timestamp = Math.round(Date.now()/1000);
@@ -21,16 +24,25 @@ gulp.task('gen-icons', () => {
         }))
         .pipe(gulp.dest(config.dst('css')));
     })
-    .pipe(gulp.dest(config.dst('fonts')));
+    .pipe(gulp.dest(config.dst('fonts')))
+});
+
+gulp.task('gen-fonts-rev', () => {
+  return gulp.src(config.dst('fonts/*'), { base })
+    .pipe(manifest.write())
+});
+
+gulp.task('gen-icons-css-rev', () => {
+  return gulp.src(config.dst('css/icon.css'), { base })
+    .pipe(manifest.replace())
+    .pipe(manifest.write())
+    .pipe(connect.reload());
 });
 
 if (config.production) {
-  gulp.task('icons', ['gen-icons'], () => {
-    let base = process.cwd() + '/dist';
-    return gulp.src(config.dst('css/icon.css'), { base })
-      .pipe(manifest.write())
-      .pipe(connect.reload());
+  gulp.task('icons', () => {
+    runSequence('gen-icons', 'gen-fonts-rev', 'gen-icons-css-rev');
   });
 } else {
-  gulp.task('icons', ['gen-icons']);
+  gulp.task('icons', 'gen-icons');
 }
